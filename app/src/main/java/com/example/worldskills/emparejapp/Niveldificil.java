@@ -1,10 +1,9 @@
 package com.example.worldskills.emparejapp;
 
-import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -110,7 +109,7 @@ public class Niveldificil extends AppCompatActivity {
     }
 //verificacion de coincidencia
     public void confirmar(int i, final ImageButton imb) {
-        if (primera == null) {//se prueba si la no se ha clikeado
+        if (primera == null) {//se prueba si no se ha clikeado
             primera = imb;
             primera.setScaleType(ImageButton.ScaleType.CENTER_CROP);
             primera.setImageResource(imagenes[arraybarajado.get(i)]);
@@ -122,7 +121,7 @@ public class Niveldificil extends AppCompatActivity {
             imb.setEnabled(false);
             bloqueo = true;
             segundoclick = arraybarajado.get(i);
-            if (primerclick == segundoclick) {//si coinsiden las dos cartas
+            if (primerclick == segundoclick) {//si coinciden las dos cartas
                 primera = null;
                 bloqueo = false;
                 acierto++;

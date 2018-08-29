@@ -102,11 +102,13 @@ public class Nivelfacil extends AppCompatActivity {
                 bloqueo = false;
                 acierto++;
                 Toast.makeText(getApplicationContext(),"bien",Toast.LENGTH_LONG).show();
+                mediaPlayer= MediaPlayer.create(this,R.raw.lose1);
+                mediaPlayer.start();
                 if (acierto == 5) {
                     Toast.makeText(getApplicationContext(),"bien",Toast.LENGTH_LONG).show();
-                    /*mediaPlayer= new MediaPlayer();
-                    MediaPlayer.create(this,R.raw.win1);
-                    mediaPlayer.prepare(MediaPlayer);*/
+                    mediaPlayer= MediaPlayer.create(this,R.raw.win1);
+                    mediaPlayer.start();
+
                 }
             } else {
                 handler.postDelayed(new Runnable() {
@@ -120,6 +122,8 @@ public class Nivelfacil extends AppCompatActivity {
                         primera.setEnabled(true);
                     }
                 }, 1000);
+                mediaPlayer= MediaPlayer.create(this,R.raw.lose1);
+                mediaPlayer.start();
             }
         }
     }

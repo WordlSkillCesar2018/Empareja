@@ -1,11 +1,13 @@
 package com.example.worldskills.emparejapp;
 
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,15 +42,27 @@ public class Nivelmedio extends AppCompatActivity {
     int puntos2 = 0;
     int[] turno = new int[]{1,2};
     int turn;
-
+    TextView tv1,tv2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nivelmedio);
+        tv1 = findViewById(R.id.textView4);
+        tv2 = findViewById(R.id.textView5);
         cargarcartas();
         iniciar();
+        String a,b;
+        a = getIntent().getExtras().getString("reenviojuego");
+        b = getIntent().getExtras().getString("reenviojuego2");
         int Ramdon = (int) Math.random()*2;
         turn = turno[Ramdon];
+        if (turn==1){
+            tv1.setText(a);
+            tv1.setTextColor(Color.parseColor("black"));
+        }else if (turn==2){
+            tv2.setText(b);
+            tv2.setTextColor(Color.parseColor("gray"));
+        }
     }
 
     private void cargarcartas() {
@@ -120,7 +134,14 @@ public class Nivelmedio extends AppCompatActivity {
                 acierto++;
                 mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                 mediaPlayer.start();
-                if (acierto == 4) {
+                if (turn==1){
+                    tv1.setTextColor(Color.parseColor("black"));
+                    turn=1;
+                }else if (turn==2){
+                    tv2.setTextColor(Color.parseColor("gray"));
+                    turn=2;
+                }
+                if (acierto == 6) {
                     Toast.makeText(getApplicationContext(), "ganaste", Toast.LENGTH_LONG).show();
                     mediaPlayer = MediaPlayer.create(this, R.raw.end);
                     mediaPlayer.start();
@@ -136,6 +157,13 @@ public class Nivelmedio extends AppCompatActivity {
                         bloqueo = false;
                         primera.setEnabled(true);
                         imb.setEnabled(true);
+                        if (turn==1){
+                            tv1.setTextColor(Color.parseColor("black"));
+                            turn=2;
+                        }else if (turn==2){
+                            tv2.setTextColor(Color.parseColor("gray"));
+                            turn=1;
+                        }
                     }
                 }, 1000);
                 mediaPlayer = MediaPlayer.create(this, R.raw.lose1);

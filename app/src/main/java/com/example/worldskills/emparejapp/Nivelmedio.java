@@ -6,13 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
-public class Nivelfacil extends AppCompatActivity {
+public class Nivelmedio extends AppCompatActivity {
 
     final Handler handler = new Handler();
 
@@ -20,11 +20,11 @@ public class Nivelfacil extends AppCompatActivity {
 
     int[] imagenes;
 
-    ImageButton[] botonera = new ImageButton[8];
+    ImageButton[] botonera = new ImageButton[12];
 
     int fondo;
 
-    ImageButton ib0, ib1, ib2, ib3, ib4, ib5, ib6, ib7;
+    ImageButton ib0, ib1, ib2, ib3, ib4, ib5, ib6, ib7,ib8,ib9,ib10,ib11;
 
     ImageButton primera;
 
@@ -36,13 +36,19 @@ public class Nivelfacil extends AppCompatActivity {
 
     MediaPlayer mediaPlayer;
 
+    int puntos1 = 0;
+    int puntos2 = 0;
+    int[] turno = new int[]{1,2};
+    int turn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nivelfacil);
-
+        setContentView(R.layout.activity_nivelmedio);
         cargarcartas();
         iniciar();
+        int Ramdon = (int) Math.random()*2;
+        turn = turno[Ramdon];
     }
 
     private void cargarcartas() {
@@ -51,6 +57,8 @@ public class Nivelfacil extends AppCompatActivity {
                 R.drawable.jimmy,
                 R.drawable.kyle,
                 R.drawable.wendy,
+                R.drawable.butters,
+                R.drawable.craig
         };
 
         fondo = R.drawable.fondo;
@@ -82,6 +90,14 @@ public class Nivelfacil extends AppCompatActivity {
         botonera[6] = ib6;
         ib7 = (ImageButton) findViewById(R.id.im8);
         botonera[7] = ib7;
+        ib8 = (ImageButton) findViewById(R.id.im9);
+        botonera[8] = ib8;
+        ib9 = (ImageButton) findViewById(R.id.im10);
+        botonera[9] = ib9;
+        ib10 = (ImageButton) findViewById(R.id.im11);
+        botonera[10] = ib10;
+        ib11 = (ImageButton) findViewById(R.id.im12);
+        botonera[11] = ib11;
 
     }
 
@@ -100,8 +116,7 @@ public class Nivelfacil extends AppCompatActivity {
             segundoclick = arraybarajado.get(i);
             if (primerclick == segundoclick) {
                 primera = null;
-                imb.setEnabled(true);
-                bloqueo = false;
+                bloqueo=false;
                 acierto++;
                 mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                 mediaPlayer.start();
@@ -115,11 +130,12 @@ public class Nivelfacil extends AppCompatActivity {
                     @Override
                     public void run() {
                         primera.setScaleType(ImageButton.ScaleType.CENTER_CROP);
-                        primera.setImageResource(R.drawable.fondo);
+                        primera.setImageResource(fondo);
                         imb.setScaleType(ImageButton.ScaleType.CENTER_CROP);
-                        imb.setImageResource(R.drawable.fondo);
+                        imb.setImageResource(fondo);
                         bloqueo = false;
                         primera.setEnabled(true);
+                        imb.setEnabled(true);
                     }
                 }, 1000);
                 mediaPlayer = MediaPlayer.create(this, R.raw.lose1);

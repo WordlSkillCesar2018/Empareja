@@ -20,8 +20,8 @@
         <activity android:name=".Menu" />
         <activity android:name=".Niveldedificultad" />
         <activity android:name=".Nivelfacil" />
-        <activity android:name=".nivelmedio" />
-        <activity android:name=".niveldificil"></activity>
+        <activity android:name=".Nivelmedio" />
+        <activity android:name=".Niveldificil"></activity>
     </application>
 
 </manifest>

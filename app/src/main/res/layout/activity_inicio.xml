@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Inicio">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="276dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="276dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:text="Primer jugador"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:textStyle="bold"
+        style="@android:style/Widget.TextView.SpinnerItem"
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="97dp"
+        android:layout_marginEnd="158dp"
+        android:layout_marginLeft="158dp"
+        android:layout_marginRight="158dp"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="41dp"
+        android:text="Bienvenido"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6"
+        tools:ignore="UnknownId" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="263dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="263dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:text="Segundo jugador"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Nombre1" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="84dp"
+        android:layout_marginEnd="144dp"
+        android:layout_marginLeft="145dp"
+        android:layout_marginRight="144dp"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="30dp"
+        android:onClick="ingresar"
+        android:text="Siguiente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Nombre2" />
+
+    <EditText
+        android:id="@+id/Nombre1"
+        android:layout_width="356dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/Nombre2"
+        android:layout_width="351dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="17dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+</android.support.constraint.ConstraintLayout>

@@ -130,7 +130,7 @@ public class Niveldificil extends AppCompatActivity {
                 mediaPlayer.start();
                 if (acierto == 8) {
                     Toast.makeText(getApplicationContext(), "ganaste", Toast.LENGTH_LONG).show();
-                    mediaPlayer = MediaPlayer.create(this, R.raw.end);
+                    mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                     mediaPlayer.start();
                 }
             } else {//si no coinciden las dos cartas vuelven a taparse

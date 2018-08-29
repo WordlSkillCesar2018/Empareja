@@ -30,11 +30,12 @@ public class Nivelfacil extends AppCompatActivity {
 
     boolean bloqueo = false;
 
-    int primerclick,segundoclick;
+    int primerclick, segundoclick;
 
     int acierto;
 
     MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,58 +58,57 @@ public class Nivelfacil extends AppCompatActivity {
 
     public ArrayList<Integer> barajar(int longitud) {
         ArrayList resultado = new ArrayList();
-        for (int i=0; i<longitud;i++ ){
-            resultado.add(i % longitud/2);
+        for (int i = 0; i < longitud; i++) {
+            resultado.add(i % longitud / 2);
             Collections.shuffle(resultado);
         }
         return resultado;
     }
 
-    public void cargarbotones(){
-        ib0 = (ImageButton)findViewById(R.id.im1);
-        botonera[0]= ib0;
-        ib1 = (ImageButton)findViewById(R.id.im2);
-        botonera[1]= ib1;
-        ib2 = (ImageButton)findViewById(R.id.im3);
-        botonera[2]= ib2;
-        ib3 = (ImageButton)findViewById(R.id.im4);
-        botonera[3]= ib3;
-        ib4 = (ImageButton)findViewById(R.id.im5);
-        botonera[4]= ib4;
-        ib5 = (ImageButton)findViewById(R.id.im6);
-        botonera[5]= ib5;
-        ib6 = (ImageButton)findViewById(R.id.im7);
-        botonera[6]= ib6;
-        ib7 = (ImageButton)findViewById(R.id.im8);
-        botonera[7]= ib7;
+    public void cargarbotones() {
+        ib0 = (ImageButton) findViewById(R.id.im1);
+        botonera[0] = ib0;
+        ib1 = (ImageButton) findViewById(R.id.im2);
+        botonera[1] = ib1;
+        ib2 = (ImageButton) findViewById(R.id.im3);
+        botonera[2] = ib2;
+        ib3 = (ImageButton) findViewById(R.id.im4);
+        botonera[3] = ib3;
+        ib4 = (ImageButton) findViewById(R.id.im5);
+        botonera[4] = ib4;
+        ib5 = (ImageButton) findViewById(R.id.im6);
+        botonera[5] = ib5;
+        ib6 = (ImageButton) findViewById(R.id.im7);
+        botonera[6] = ib6;
+        ib7 = (ImageButton) findViewById(R.id.im8);
+        botonera[7] = ib7;
 
     }
 
-    public void confirmar (int i, final ImageButton imb){
-        if (primera==null){
-            primera=imb;
+    public void confirmar(int i, final ImageButton imb) {
+        if (primera == null) {
+            primera = imb;
             primera.setScaleType(ImageButton.ScaleType.CENTER_CROP);
             primera.setImageResource(imagenes[arraybarajado.get(i)]);
             primera.setEnabled(false);
             primerclick = arraybarajado.get(i);
-        }else {
+        } else {
             imb.setScaleType(ImageButton.ScaleType.CENTER_CROP);
             imb.setImageResource(imagenes[arraybarajado.get(i)]);
-            imb.setEnabled(false);
+            primera.setEnabled(false);
             bloqueo = true;
             segundoclick = arraybarajado.get(i);
             if (primerclick == segundoclick) {
                 primera = null;
                 bloqueo = false;
+                imb.setEnabled(false);
                 acierto++;
-                Toast.makeText(getApplicationContext(),"bien",Toast.LENGTH_LONG).show();
-                mediaPlayer= MediaPlayer.create(this,R.raw.lose1);
+                mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                 mediaPlayer.start();
-                if (acierto == 5) {
-                    Toast.makeText(getApplicationContext(),"bien",Toast.LENGTH_LONG).show();
-                    mediaPlayer= MediaPlayer.create(this,R.raw.win1);
+                if (acierto == 4) {
+                    Toast.makeText(getApplicationContext(), "ganaste", Toast.LENGTH_LONG).show();
+                    mediaPlayer = MediaPlayer.create(this, R.raw.end);
                     mediaPlayer.start();
-
                 }
             } else {
                 handler.postDelayed(new Runnable() {
@@ -118,15 +118,16 @@ public class Nivelfacil extends AppCompatActivity {
                         primera.setImageResource(R.drawable.fondo);
                         imb.setScaleType(ImageButton.ScaleType.CENTER_CROP);
                         imb.setImageResource(R.drawable.fondo);
-                        bloqueo=false;
+                        bloqueo = false;
                         primera.setEnabled(true);
                     }
                 }, 1000);
-                mediaPlayer= MediaPlayer.create(this,R.raw.lose1);
+                mediaPlayer = MediaPlayer.create(this, R.raw.lose1);
                 mediaPlayer.start();
             }
         }
     }
+
 
     public void iniciar(){
         arraybarajado = barajar(imagenes.length*2);

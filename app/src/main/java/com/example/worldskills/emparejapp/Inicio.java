@@ -9,6 +9,7 @@ import android.widget.EditText;
 public class Inicio extends AppCompatActivity {
 
     EditText et1,et2;
+    SqliteOpenHelper sqliteOpenHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

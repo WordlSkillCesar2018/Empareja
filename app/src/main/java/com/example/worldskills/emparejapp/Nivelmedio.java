@@ -1,6 +1,7 @@
 package com.example.worldskills.emparejapp;
 
 import android.graphics.Color;
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class Nivelmedio extends AppCompatActivity {
 
@@ -49,6 +49,7 @@ public class Nivelmedio extends AppCompatActivity {
         setContentView(R.layout.activity_nivelmedio);
         tv1 = findViewById(R.id.textView4);
         tv2 = findViewById(R.id.textView5);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         cargarcartas();
         iniciar();
         String a,b;
@@ -143,7 +144,7 @@ public class Nivelmedio extends AppCompatActivity {
                 }
                 if (acierto == 6) {
                     Toast.makeText(getApplicationContext(), "ganaste", Toast.LENGTH_LONG).show();
-                    mediaPlayer = MediaPlayer.create(this, R.raw.end);
+                    mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                     mediaPlayer.start();
                 }
             } else {

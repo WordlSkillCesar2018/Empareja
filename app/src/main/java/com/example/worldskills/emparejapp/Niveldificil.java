@@ -1,5 +1,6 @@
 package com.example.worldskills.emparejapp;
 
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -152,11 +153,11 @@ public class Niveldificil extends AppCompatActivity {
     }
 
 
-    public void iniciar(){
-        arraybarajado = barajar(imagenes.length*2);
+    public void iniciar() {
+        arraybarajado = barajar(imagenes.length * 2);
         cargarbotones();
 
-        for (int i=0;i<botonera.length;i++){
+        for (int i = 0; i < botonera.length; i++) {
             botonera[i].setScaleType(ImageButton.ScaleType.CENTER_CROP);
             botonera[i].setImageResource(imagenes[arraybarajado.get(i)]);
         }
@@ -164,24 +165,25 @@ public class Niveldificil extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i=0; i<botonera.length;i++){
+                for (int i = 0; i < botonera.length; i++) {
                     botonera[i].setScaleType(ImageButton.ScaleType.CENTER_CROP);
                     botonera[i].setImageResource(fondo);
                 }
             }
-        },1000);
+        }, 1000);
 
-        for (int i=0; i<arraybarajado.size();i++){
+        for (int i = 0; i < arraybarajado.size(); i++) {
             final int j = i;
             botonera[i].setEnabled(true);
             botonera[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!bloqueo){
-                        confirmar(j,botonera[j]);
+                    if (!bloqueo) {
+                        confirmar(j, botonera[j]);
                     }
                 }
             });
         }
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.worldskills.emparejapp;
 
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +46,7 @@ public class Nivelmedio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nivelmedio);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         cargarcartas();
         iniciar();
         int Ramdon = (int) Math.random()*2;
@@ -122,7 +124,7 @@ public class Nivelmedio extends AppCompatActivity {
                 mediaPlayer.start();
                 if (acierto == 4) {
                     Toast.makeText(getApplicationContext(), "ganaste", Toast.LENGTH_LONG).show();
-                    mediaPlayer = MediaPlayer.create(this, R.raw.end);
+                    mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                     mediaPlayer.start();
                 }
             } else {

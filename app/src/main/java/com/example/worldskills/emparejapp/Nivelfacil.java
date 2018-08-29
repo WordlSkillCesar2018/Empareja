@@ -1,10 +1,13 @@
 package com.example.worldskills.emparejapp;
 
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -40,7 +43,7 @@ public class Nivelfacil extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nivelfacil);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         cargarcartas();
         iniciar();
     }
@@ -107,7 +110,7 @@ public class Nivelfacil extends AppCompatActivity {
                 mediaPlayer.start();
                 if (acierto == 4) {
                     Toast.makeText(getApplicationContext(), "ganaste", Toast.LENGTH_LONG).show();
-                    mediaPlayer = MediaPlayer.create(this, R.raw.end);
+                    mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                     mediaPlayer.start();
                 }
             } else {

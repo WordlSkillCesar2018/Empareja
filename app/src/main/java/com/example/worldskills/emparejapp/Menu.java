@@ -21,7 +21,7 @@ public class Menu extends AppCompatActivity {
 
 
     }
-
+    //boton siguiente
     public void Siguente(View view) {
         if (iniciarjuego.isChecked()){
             String a,b;

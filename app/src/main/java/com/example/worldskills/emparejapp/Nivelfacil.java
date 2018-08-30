@@ -1,6 +1,7 @@
 package com.example.worldskills.emparejapp;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -39,6 +41,12 @@ public class Nivelfacil extends AppCompatActivity {
 
     MediaPlayer mediaPlayer;
 
+    TextView tv1,tv2;
+
+    int acierto1;
+    int[] turno = new int[]{1,2};
+    int turn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +54,24 @@ public class Nivelfacil extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         cargarcartas();
         iniciar();
+        String a,b;
+        tv1 = findViewById(R.id.textView4);
+        tv2 = findViewById(R.id.textView5);
+        a = getIntent().getExtras().getString("reenviojuego");
+        b = getIntent().getExtras().getString("reenviojuego2");
+        int Ramdon = (int) Math.random()*2;
+        turn = turno[Ramdon];
+        if (turn==1){
+            tv1.setText(a+acierto);
+            tv1.setTextColor(Color.parseColor("black"));
+            tv2.setText(b+acierto1);
+            tv2.setTextColor(Color.parseColor("gray"));
+        }if (turn==2){
+            tv1.setText(a+acierto);
+            tv1.setTextColor(Color.parseColor("gray"));
+            tv2.setText(b+acierto1);
+            tv2.setTextColor(Color.parseColor("black"));
+        }
     }
 
     private void cargarcartas() {
@@ -88,8 +114,9 @@ public class Nivelfacil extends AppCompatActivity {
 
     }
 
+    //confirma si estan buenos o malos los aciertos
     public void confirmar(int i, final ImageButton imb) {
-        if (primera == null) {
+        if (primera == null) {//se revisa si no se ha clikeado nada
             primera = imb;
             primera.setScaleType(ImageButton.ScaleType.CENTER_CROP);
             primera.setImageResource(imagenes[arraybarajado.get(i)]);
@@ -101,11 +128,19 @@ public class Nivelfacil extends AppCompatActivity {
             imb.setEnabled(false);
             bloqueo = true;
             segundoclick = arraybarajado.get(i);
-            if (primerclick == segundoclick) {
+            if (primerclick == segundoclick) {//se compraran las cartas clikeadas
                 primera = null;
-                imb.setEnabled(true);
                 bloqueo = false;
                 acierto++;
+                if (turn==1){
+                    tv1.setTextColor(Color.parseColor("black"));
+                    turn=1;
+                    acierto++;
+                }else if (turn==2){
+                    tv2.setTextColor(Color.parseColor("gray"));
+                    turn=2;
+                    acierto++;
+                }
                 mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                 mediaPlayer.start();
                 if (acierto == 4) {
@@ -113,7 +148,7 @@ public class Nivelfacil extends AppCompatActivity {
                     mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                     mediaPlayer.start();
                 }
-            } else {
+            } else {//si son diferentes las cartas se voltean nuevamente
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -123,6 +158,15 @@ public class Nivelfacil extends AppCompatActivity {
                         imb.setImageResource(R.drawable.fondo);
                         bloqueo = false;
                         primera.setEnabled(true);
+                        imb.setEnabled(true);
+                        if (turn==1){
+                            tv1.setTextColor(Color.parseColor("black"));
+                            turn=2;
+
+                        }else if (turn==2){
+                            tv2.setTextColor(Color.parseColor("gray"));
+                            turn=1;
+                        }
                     }
                 }, 1000);
                 mediaPlayer = MediaPlayer.create(this, R.raw.lose1);

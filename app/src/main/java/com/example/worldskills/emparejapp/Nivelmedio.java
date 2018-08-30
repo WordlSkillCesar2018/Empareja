@@ -43,29 +43,34 @@ public class Nivelmedio extends AppCompatActivity {
     int[] turno = new int[]{1,2};
     int turn;
     TextView tv1,tv2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nivelmedio);
-        tv1 = findViewById(R.id.textView4);
-        tv2 = findViewById(R.id.textView5);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         cargarcartas();
         iniciar();
         String a,b;
+        tv1 = findViewById(R.id.textView4);
+        tv2 = findViewById(R.id.textView5);
         a = getIntent().getExtras().getString("reenviojuego");
         b = getIntent().getExtras().getString("reenviojuego2");
         int Ramdon = (int) Math.random()*2;
         turn = turno[Ramdon];
         if (turn==1){
-            tv1.setText(a);
+            tv1.setText(a+" "+acierto);
             tv1.setTextColor(Color.parseColor("black"));
-        }else if (turn==2){
-            tv2.setText(b);
+            tv2.setText(b+" "+acierto);
             tv2.setTextColor(Color.parseColor("gray"));
+        }if (turn==2){
+            tv1.setText(a+" "+acierto);
+            tv1.setTextColor(Color.parseColor("gray"));
+            tv2.setText(b+" "+acierto);
+            tv2.setTextColor(Color.parseColor("black"));
         }
     }
-
+//carga de cartas en el arreglo
     private void cargarcartas() {
         imagenes = new int[]{
                 R.drawable.cartman,
@@ -79,6 +84,7 @@ public class Nivelmedio extends AppCompatActivity {
         fondo = R.drawable.fondo;
     }
 
+    //se desorganizan las cartas
     public ArrayList<Integer> barajar(int longitud) {
         ArrayList resultado = new ArrayList();
         for (int i = 0; i < longitud; i++) {
@@ -116,8 +122,9 @@ public class Nivelmedio extends AppCompatActivity {
 
     }
 
+    //confirmar las cartas si son iguales o no
     public void confirmar(int i, final ImageButton imb) {
-        if (primera == null) {
+        if (primera == null) {// si no se ha clikeado nada
             primera = imb;
             primera.setScaleType(ImageButton.ScaleType.CENTER_CROP);
             primera.setImageResource(imagenes[arraybarajado.get(i)]);
@@ -129,42 +136,28 @@ public class Nivelmedio extends AppCompatActivity {
             imb.setEnabled(false);
             bloqueo = true;
             segundoclick = arraybarajado.get(i);
-            if (primerclick == segundoclick) {
+            if (primerclick == segundoclick) {//comprobar si las cartas son iguales
                 primera = null;
-                bloqueo=false;
+                bloqueo = false;
                 acierto++;
                 mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                 mediaPlayer.start();
-                if (turn==1){
-                    tv1.setTextColor(Color.parseColor("black"));
-                    turn=1;
-                }else if (turn==2){
-                    tv2.setTextColor(Color.parseColor("gray"));
-                    turn=2;
-                }
-                if (acierto == 6) {
+                if (acierto == 6) {//comprobar el numero maximo de aciertos para finalizar la aplicacion
                     Toast.makeText(getApplicationContext(), "ganaste", Toast.LENGTH_LONG).show();
                     mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                     mediaPlayer.start();
                 }
             } else {
-                handler.postDelayed(new Runnable() {
+                handler.postDelayed(new Runnable() {//si las  cartas no son iguales se tapan
                     @Override
                     public void run() {
                         primera.setScaleType(ImageButton.ScaleType.CENTER_CROP);
                         primera.setImageResource(fondo);
                         imb.setScaleType(ImageButton.ScaleType.CENTER_CROP);
                         imb.setImageResource(fondo);
-                        bloqueo = false;
                         primera.setEnabled(true);
                         imb.setEnabled(true);
-                        if (turn==1){
-                            tv1.setTextColor(Color.parseColor("black"));
-                            turn=2;
-                        }else if (turn==2){
-                            tv2.setTextColor(Color.parseColor("gray"));
-                            turn=1;
-                        }
+                        bloqueo = false;
                     }
                 }, 1000);
                 mediaPlayer = MediaPlayer.create(this, R.raw.lose1);
@@ -174,7 +167,9 @@ public class Nivelmedio extends AppCompatActivity {
     }
 
 
+
     public void iniciar(){
+        //se llena el tamaño de el arreglo
         arraybarajado = barajar(imagenes.length*2);
         cargarbotones();
 
@@ -206,5 +201,6 @@ public class Nivelmedio extends AppCompatActivity {
             });
 
         }
+        acierto=0;
     }
 }

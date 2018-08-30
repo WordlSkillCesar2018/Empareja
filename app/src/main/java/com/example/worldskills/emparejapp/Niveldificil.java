@@ -1,12 +1,14 @@
 package com.example.worldskills.emparejapp;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class Niveldificil extends AppCompatActivity {
     int puntos2 = 0;
     int[] turno = new int[]{1,2};
     int turn;
+    TextView tv1,tv2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,25 @@ public class Niveldificil extends AppCompatActivity {
         setContentView(R.layout.activity_niveldificil);
         cargarcartas();
         iniciar();
+        String a,b;
+        tv1 = findViewById(R.id.textView4);
+        tv2 = findViewById(R.id.textView5);
+        a = getIntent().getExtras().getString("reenviojuego");
+        b = getIntent().getExtras().getString("reenviojuego2");
+        int Ramdon = (int) Math.random()*2;
+        turn = turno[Ramdon];
+        if (turn==1){
+            tv1.setText(a+" "+acierto);
+            tv1.setTextColor(Color.parseColor("black"));
+            tv2.setText(b+" "+acierto);
+            tv2.setTextColor(Color.parseColor("gray"));
+        }if (turn==2){
+            tv1.setText(a+" "+acierto);
+            tv1.setTextColor(Color.parseColor("gray"));
+            tv2.setText(b+" "+acierto);
+            tv2.setTextColor(Color.parseColor("black"));
+        }
+
     }
 
     private void cargarcartas() {
@@ -110,50 +132,54 @@ public class Niveldificil extends AppCompatActivity {
     }
 //verificacion de coincidencia
     public void confirmar(int i, final ImageButton imb) {
-        if (primera == null) {//se prueba si la no se ha clikeado
-            primera = imb;
-            primera.setScaleType(ImageButton.ScaleType.CENTER_CROP);
-            primera.setImageResource(imagenes[arraybarajado.get(i)]);
-            primera.setEnabled(false);
-            primerclick = arraybarajado.get(i);
-        } else {
-            imb.setScaleType(ImageButton.ScaleType.CENTER_CROP);
-            imb.setImageResource(imagenes[arraybarajado.get(i)]);
-            imb.setEnabled(false);
-            bloqueo = true;
-            segundoclick = arraybarajado.get(i);
-            if (primerclick == segundoclick) {//si coinsiden las dos cartas
-                primera = null;
-                bloqueo = false;
-                acierto++;
-                mediaPlayer = MediaPlayer.create(this, R.raw.win1);
-                mediaPlayer.start();
-                if (acierto == 8) {
-                    Toast.makeText(getApplicationContext(), "ganaste", Toast.LENGTH_LONG).show();
-                    mediaPlayer = MediaPlayer.create(this, R.raw.end);
+            if (primera == null) {//se prueba si la no se ha clikeado
+                primera = imb;
+                primera.setScaleType(ImageButton.ScaleType.CENTER_CROP);
+                primera.setImageResource(imagenes[arraybarajado.get(i)]);
+                primera.setEnabled(false);
+                primerclick = arraybarajado.get(i);
+            } else {
+                imb.setScaleType(ImageButton.ScaleType.CENTER_CROP);
+                imb.setImageResource(imagenes[arraybarajado.get(i)]);
+                imb.setEnabled(false);
+                bloqueo = true;
+                segundoclick = arraybarajado.get(i);
+                if (primerclick == segundoclick) {//si coinciden las dos cartas
+                    primera = null;
+                    bloqueo = false;
+                    acierto++;
+                    mediaPlayer = MediaPlayer.create(this, R.raw.win1);
                     mediaPlayer.start();
-                }
-            } else {//si no coinciden las dos cartas vuelven a taparse
+                    if (acierto == 8) {
+                        Toast.makeText(getApplicationContext(), "ganaste", Toast.LENGTH_LONG).show();
+                        mediaPlayer = MediaPlayer.create(this, R.raw.end);
+                        mediaPlayer.start();
+                    }
+
+            }//si no coinciden las dos cartas vuelven a taparse despues de 1 segundo
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         primera.setScaleType(ImageButton.ScaleType.CENTER_CROP);
-                        primera.setImageResource(fondo);
+                        primera.setImageResource(R.drawable.fondo);
                         imb.setScaleType(ImageButton.ScaleType.CENTER_CROP);
-                        imb.setImageResource(fondo);
+                        imb.setImageResource(R.drawable.fondo);
                         primera.setEnabled(true);
                         imb.setEnabled(true);
                         bloqueo = false;
                         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.lose1);
                         mediaPlayer.start();
+
                     }
                 }, 1000);
             }
-        }
     }
 
 
+
+
     public void iniciar() {
+        //se cuentan las cartas
         arraybarajado = barajar(imagenes.length * 2);
         cargarbotones();
 

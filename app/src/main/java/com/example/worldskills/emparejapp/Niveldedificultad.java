@@ -10,6 +10,7 @@ public class Niveldedificultad extends AppCompatActivity {
 
     //niveles de dificultad
     RadioButton facil,medio,dificil;
+    String a, b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,33 +21,28 @@ public class Niveldedificultad extends AppCompatActivity {
         dificil = findViewById(R.id.radioButtondificil);
         //marca el primer radiobutton
         facil.setChecked(true);
+        a = getIntent().getExtras().getString("reenvio");
+        b = getIntent().getExtras().getString("reenvio2");
     }
+
+
 
     //actividad del boton
     public void Jugar(View view) {
         //opciones de Niveles
         if (facil.isChecked()) {
-            String a, b;
-            a = getIntent().getExtras().getString("nombre1");
-            b = getIntent().getExtras().getString("nombre2");
             Intent intent = new Intent(this,Nivelfacil.class);
             intent.putExtra("reenviojuego", a);
             intent.putExtra("reenviojuego2", b);
             startActivity(intent);
         }
         if (medio.isChecked()) {
-            String a, b;
-            a = getIntent().getExtras().getString("nombre1");
-            b = getIntent().getExtras().getString("nombre2");
             Intent intent = new Intent(this,Nivelmedio.class);
             intent.putExtra("reenviojuego", a);
             intent.putExtra("reenviojuego2", b);
             startActivity(intent);
         }
         if (dificil.isChecked()) {
-            String a, b;
-            a = getIntent().getExtras().getString("nombre1");
-            b = getIntent().getExtras().getString("nombre2");
             Intent intent = new Intent(this,Niveldificil.class);
             intent.putExtra("reenviojuego", a);
             intent.putExtra("reenviojuego2", b);
